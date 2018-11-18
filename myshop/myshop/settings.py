@@ -40,6 +40,7 @@ INSTALLED_APPS = [
     'shop.apps.ShopConfig',
     'cart.apps.CartConfig',
     'orders.apps.OrdersConfig',
+    'payment.apps.PaymentConfig',
 ]
 
 MIDDLEWARE = [
@@ -133,3 +134,17 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 LOGOUT_REDIRECT_URL = '/home'
 LOGIN_REDIRECT_URL = '/home'
+
+#BRAINTREE settings
+BRAINTREE_MERCHANT_ID = 'gd6vz9xh6rsgqjw7'
+BRAINTREE_PUBLIC_KEY = 'yqwfdnt8zvnsnknh'
+BRAINTREE_PRIVATE_KEY = 'd6fbfc6f7bf37264289e92067dd74972'
+
+from braintree import Configuration, Environment
+
+Configuration.configure(
+    Environment.Sandbox,
+    BRAINTREE_MERCHANT_ID,
+    BRAINTREE_PUBLIC_KEY,
+    BRAINTREE_PRIVATE_KEY
+)
