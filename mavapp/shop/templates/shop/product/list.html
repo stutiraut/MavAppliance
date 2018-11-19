@@ -1,0 +1,62 @@
+{% extends "shop/base.html" %}
+{% load static %}
+
+{% block title %}
+{% if category %}{{ category.name }}{% else %}Products{% endif %}
+{% endblock %}
+
+{% block dropdown %}
+<div class="ui simple dropdown item">
+    Categories
+    <i class="dropdown icon"></i>
+    <div class="menu">
+        {% for c in categories %}
+        <a href="{{ c.get_absolute_url }}" class="item">
+            {{ c.name }}
+        </a>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
+
+{% block content %}
+<div class="ui main container">
+    <h1>{% if category %}{{ category.name }}{% else %}Products{% endif %}</h1>
+    <div class="ui link cards">
+        {% for product in products %}
+        <div class="card">
+            <div class="ui image">
+                <a href="{{ product.get_absolute_url }}">
+                    <img src="{% if product.image %}{{ product.image.url }}{% else %}{% static "img/no_image.png" %}{% endif %}">
+                </a>
+            </div>
+            <div class="content">
+                <div class="header">{{ product.name }}</div>
+                <div class="meta">
+                    <a>Friends</a>
+                </div>
+                <div class="description">
+                    {{ product.description }}
+                </div>
+            </div>
+            <div class="extra content">
+                <span class="right floated">
+                    Joined in 2013
+                </span>
+                <span>
+                    {{ product.price }}
+                </span>
+            </div>
+            <div class="ui bottom attached button">
+                <i class="add icon"></i>
+                Add to cart
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+</div>
+<script>
+    $('.dropdown').dropdown();
+</script>
+{% endblock %}
